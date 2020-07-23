@@ -27,51 +27,52 @@ This file describes the COMSOL implementation of neuronal models on MEA with ele
      bioRxiv, 2020, doi: 10.1101/2020.06.07.139014. 
      Subitted to IEEE TBME
 
-A boundary-value-problem is simulated in COMSOL for a two-dimensional bicrystal with a
-circular grain embedded inside a square domain. This is a simulation of the
-shrinking grian boundary without grain rotation. See the above reference for additional details
-regarding the model. For comparison purposes, we also simulate an equivalent KWC
-model.
+This directory contains three threedimensional neuron models to simulate extracellular recording of electric neuronal signals. 
+The models use Hodgkin-Huxley model descriptions for action potential generation and propagation. 
+The distribution of electric potential in intra- and extracellular space is modeled using an electro-quasistatic approximation of Maxwell's equation. 
+An planar extracellular microelectrode embedded in an insulating surface is described using an equivalent circuit connected to the threedimensional domain. 
+circular grain embedded inside a square domain. 
 
 The directory consists of the files
      README
-     expressions.m
-         levCiv.m
-     pcp_circular.mph
-         poldecomp.m
-         latticeRotation.m
+     
+     model I_template.mph
+     model II_template.mph
+     model III_template.mph
+     
+     geometry model I.stl
+     geometry model II.stl
+     geometry model III.stl
+     
+     Parameters_model I.m
+     Parameters_model II.m
+     Parameters_model III.m
+     
+     expressions_model I.m
+     expressions_model II.m
+     expressions_model III.m
 
-Following are steps to be followed to run the poly_cp.mph:
+Following are steps to be followed to run one of the model x.mph:
 
-1) Run 'expressions.m' (depends on 'levCiv.m'), a matlab file used to generate the following 
+1) Open any of the 'model x.mph' COMSOL file. The .mph file, in its current form, has the 
+   parameters, variables and pdes already inputted. Using the 'solve' command in the study tab of COMSOL.
+   Geometry, physics expressions or parameters can be altered in the respective directories.
+
+2) Instead, if you intend to make any changes to the model by altering the expressions.m file, then the new 
+   parameters.txt, variables.txt and the pde.txt files are to be included as follows
+   
+   Run 'expressions.m', a matlab file used to generate the following 
    three .txt files: 1) parameters.txt, 2) variables.txt and 3) pde.txt. These
    files are used as input for material parameters, variable definitions and weak
-   form pdes in COMSOL v5.2 file 'pcp_circular.mph'. 
-
-2) Open the 'pcp_circular.mph' COMSOL file. The 'pcp_circular.mph' file, in its current form, has the 
-   parameters, variables and pdes already inputted. So, step 2 above may be skipped. Instead, if you 
-   intend to make any changes to the model by altering the expressions.m file, then the new 
-   parameters.txt, variables.txt and the pde.txt files are to be included as follows:
+   form pdes in COMSOL v5.x file 'model x.mph'. :
 
    The files parameters.txt and variables.txt are uploaded in 
-   the tabs (of COMSOL v5.2)
+   the tabs (of COMSOL v5.x)
 
        Global Definitions -> parameters,
        Component 1 -> Definition -> variables,
 
-   respectively. The weak-form pdes in the file 'pde.txt' are pasted into the four
-   PHYSICS tabs:
-
-       Slips           -> Weak Form PDE1
-       Force Balance   -> Weak Form PDE1
-       Flow Rule       -> Weak Form PDE1
-       Phi             -> Weak Form PDE1
-       kwc             -> Weak Form PDE1
-
-   The first four listed above correspond to the polcyrstal plasticity model,
-   which are solved in the 'ge_study' STUDY . The last physics tab is solved in
-   the 'kwc_study' STUDY which corresponds to the KWC model. The files 'poldecomp.m' and
-   'latticeRotation.m' are matlab functions used by COMSOL to plot lattice rotation using
-   polar decomposition.
-
+   respectively. The weak-form pdes in the file 'pde.txt' are pasted into the respective
+   PHYSICS tabs.
+      
 3) Run 'pcp_circular.mph'
