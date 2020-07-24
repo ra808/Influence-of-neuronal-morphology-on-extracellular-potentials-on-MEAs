@@ -76,3 +76,5 @@ Following are steps to be followed to run one of the model x.mph:
    PHYSICS tabs.
       
 3) Run 'model_x.mph'
+
+The model_template_II and model_template_III are large to upload into this repository. Please contact us for those files.
