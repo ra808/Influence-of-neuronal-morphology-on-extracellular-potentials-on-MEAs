@@ -75,4 +75,4 @@ Following are steps to be followed to run one of the model x.mph:
    respectively. The weak-form pdes in the file 'pde.txt' are pasted into the respective
    PHYSICS tabs.
       
-3) Run 'pcp_circular.mph'
+3) Run 'model_x.mph'
